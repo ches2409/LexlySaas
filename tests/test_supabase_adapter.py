@@ -54,13 +54,15 @@ def test_get_all_returns_records(adapter, mock_client):
     assert result[1] == {"id": "2"}
 
 
-def test_get_all_returns_empty_when_no_data(adapter, mock_client):
+def test_get_all_returns_empty_list(adapter, mock_client):
     """Test que get_all retorna lista vacía cuando no hay datos"""
-    mock_client.table.return_value.select.return_value.eq.return_value.limit.return_value.offset.return_value.execute.return_value = MockResponse(None)
+    # Sin filtros: solo select().limit().offset().execute()
+    mock_client.table.return_value.select.return_value.limit.return_value.offset.return_value.execute.return_value = MockResponse([])
 
     result = adapter.get_all("clientes", {})
 
     assert result == []
+    assert isinstance(result, list)
 
 
 def test_insert_returns_created_record(adapter, mock_client):

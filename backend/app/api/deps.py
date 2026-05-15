@@ -9,6 +9,8 @@ from dotenv import load_dotenv
 
 from backend.app.domain.ports.supabase_port import SupabasePort
 from backend.app.infrastructure.adapters.supabase_adapter import SupabaseClientAdapter
+from backend.app.domain.ports.storage_port import StoragePort
+from backend.app.infrastructure.adapters.storage_adapter import SupabaseStorageAdapter
 
 load_dotenv("/media/chesdevos/CHESDEVS1/proyectos/lexlySaas/.env")
 
@@ -24,6 +26,12 @@ def get_supabase_adapter() -> SupabasePort:
     """Proveedor del adaptador de Supabase para inyección de dependencias."""
     client = get_supabase()
     return SupabaseClientAdapter(client)
+
+
+def get_storage_adapter() -> StoragePort:
+    """Proveedor del adaptador de Storage para inyección de dependencias."""
+    client = get_supabase()
+    return SupabaseStorageAdapter(client)
 
 def decode_token(token: str) -> dict:
     jwt_secret = os.getenv("JWT_SECRET")

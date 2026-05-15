@@ -28,7 +28,7 @@ app.add_middleware(
 );
 
 # Importar routers
-from backend.app.api import users, health, auth, clientes, casos, caso_documentos, caso_actividades, caso_notas, caso_citas
+from backend.app.api import users, health, auth, clientes, casos, caso_documentos, caso_actividades, caso_notas, caso_citas, storage
 from backend.app.api.test_db import router as test_db_router
 from backend.app.api.debug import router as debug_router
 
@@ -43,6 +43,7 @@ app.include_router(caso_documentos.router, prefix="/api/v1", tags=["caso-documen
 app.include_router(caso_actividades.router, prefix="/api/v1", tags=["caso-actividades"])
 app.include_router(caso_notas.router, prefix="/api/v1", tags=["caso-notas"])
 app.include_router(caso_citas.router, prefix="/api/v1", tags=["citas"])
+app.include_router(storage.router, prefix="/api/v1", tags=["storage"])
 app.include_router(test_db_router, prefix="/api/v1", tags=["debug"])
 app.include_router(debug_router, prefix="/api/v1", tags=["debug"])
 
